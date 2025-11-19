@@ -22,7 +22,7 @@ Text output is associated with the same script runs which produced the correspon
 
 'XGBoost_wave_analysis.py'
 
-'''===== Wave Intensity Summary (Overall) =====
+<pre>'''===== Wave Intensity Summary (Overall) =====
 Minimum wave intensity: -27.4399
 Maximum wave intensity: 38.9166
 Mean wave intensity: 0.2060
@@ -41,7 +41,7 @@ Standard deviation: 13.1992
 ===== Model Performance on Test Data =====
 RMSE: 9.9817
 R² Score: 0.4267
-MAE: 7.9043'''
+MAE: 7.9043'''</pre>
 
 'Spatial_lag_regression.py'
 
