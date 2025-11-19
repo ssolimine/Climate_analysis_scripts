@@ -382,7 +382,7 @@ def time_height_lag_regression(wig, era5, base_y, base_x, max_lag=12):
 
         std_array = np.zeros((1, 1))
         # std_array -= np.std(wig_temp_clean[maxLag:era5.shape[0] - maxLag, baseY1:baseY2, baseX])
-        std_array -= 15
+        std_array -= 8
         lagRegHeight[lag + maxLag] = std_array.dot(c)
 
     lagRegHeightComplete = np.swapaxes(lagRegHeight[:, :, baseY1, baseX], 0, 1)
