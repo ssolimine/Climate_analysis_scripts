@@ -411,7 +411,7 @@ def spatial_lag_regression(wig, era5, levels, pressure_lev, base_y, base_x, max_
         c = c.transpose(1, 0, 2)
         std_array = np.zeros((1, 1))
         # std_array -= np.std(wig_temp_clean[maxlag:era_reg.shape[0] - maxlag, baseY1:baseY2, baseX])
-        std_array -= 15
+        std_array -= 8
         lagRegSpatial[lag + maxlag] = std_array.dot(c)
 
     # Creates grid of statistical significance (P-values)
