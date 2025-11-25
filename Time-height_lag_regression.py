@@ -400,15 +400,15 @@ lagReg_omega = time_height_lag_regression(wig_height_final, omega_height_final, 
                                           base_lon_height_idx)
 
 
-def time_height_regression_plot(era5_lag, var_name=None, var_units=None, save_path=None):
+def time_height_regression_plot(era5_lag, var_name=None, var_units=None, round=True, save_path=None):
     minval = -abs(era5_lag).max()
     maxval = abs(era5_lag).max()
-
+    
     # Define contour intervals explicitly
     intrvl = (maxval - minval) / 16
     levels = np.arange(minval, maxval + intrvl, intrvl)
     fig, ax = plt.subplots(1, 1, figsize=(10, 5))
-
+    
     # Contourf plot with centered normalization
     cb = ax.contourf(
         era5_lag,
@@ -417,44 +417,45 @@ def time_height_regression_plot(era5_lag, var_name=None, var_units=None, save_pa
         norm=MidpointNormalize(vmin=minval, vmax=maxval, midpoint=0),
         # extend='both'
     )
-
+    
     ax.contour(era5_lag, levels=np.arange(minval, maxval, intrvl), colors='black', linestyles='solid',
                negative_linestyles='solid', linewidths=0.3)
 
-    # Colorbar setup with explicit labeling
     clb_ticks = np.linspace(minval, maxval, num=9)
-    clb = plt.colorbar(cb, ticks=clb_ticks)
-    clb.ax.set_yticklabels([f'{tick:.2f}' for tick in clb_ticks])
-
-    # # Explicitly label min/max on colorbar
-    clb.ax.set_yticklabels(
-        [f'{minval:.2f}'] + [f'{tick:.2f}' for tick in clb_ticks[1:-1]] + [f'{maxval:.2f}']
-    )
-    clb.set_label(f'( {var_units} )', fontsize=14)
-
+    if round:
+        clb = plt.colorbar(cb, ticks=clb_ticks)
+        clb.ax.set_yticklabels([f'{tick:.2f}' for tick in clb_ticks])
+        clb.ax.set_yticklabels(
+            [f'{minval:.2f}'] + [f'{tick:.2f}' for tick in clb_ticks[1:-1]] + [f'{maxval:.2f}']
+        )
+        clb.set_label(f'( {var_units} )', fontsize=14)
+    else:
+        clb = plt.colorbar(cb, ticks=clb_ticks)
+        clb.set_label(f'( {var_units} )', fontsize=14)
+        
     # Set proper pressure levels (y-axis)
     pressure_levels = np.array([
         1000., 975., 950., 925., 900., 875., 850., 825., 800., 775., 750., 700., 650.,
         600., 550., 500., 450., 400., 350., 300., 250., 225., 200., 175., 150.
     ])
-
+    
     # Desired ticks every 100 hPa starting from 1000 hPa
     ytick_values = [1000, 900, 800, 700, 600, 500, 400, 300, 200]
     ytick_indices = [np.where(pressure_levels == p)[0][0] for p in ytick_values]
     ax.set_yticks(ytick_indices)
     ax.set_yticklabels([str(int(p)) for p in ytick_values])
-
+    
     # X-axis ticks for lag
     ax.set_xticks(np.arange(0, 25, 2))
     ax.set_xticklabels([-36, -30, -24, -18, -12, -6, 0, 6, 12, 18, 24, 30, 36])
     ax.set_ylabel('Pressure (hPa)', fontsize=14)
     ax.set_xlabel('Lag (hours)', fontsize=14)
     ax.set_title(f"Time-height lag regressed {var_name} (Congo)", fontsize=14)
+    
     # plt.title('Lag-Height Regression of Temperature', fontsize=16)
     plt.tight_layout()
     plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.show()
-
 
 time_height_regression_plot(lagReg_q * 1000, var_name="specific humidity", var_units='g / kg',
                             save_path="/savepath/Time-height_lag_q.png")
@@ -462,6 +463,7 @@ time_height_regression_plot(lagReg_temp, var_name="temperature", var_units='K',
                             save_path="/savepath/Time-height_lag_temp.png")
 time_height_regression_plot(lagReg_div, var_name="divergence",
                             var_units='s\N{SUPERSCRIPT MINUS}\N{SUPERSCRIPT ONE}',
+                            round=False,
                             save_path="/savepath/Time-height_lag_divergence.png")
 
 
