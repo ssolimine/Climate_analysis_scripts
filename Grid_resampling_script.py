@@ -10,7 +10,7 @@ from pyresample.geometry import GridDefinition
 """
 This script resamples the spatial grid of various ERA5 datasets and the MSWEP precipitation dataset onto the spatial 
 grid of the CLAUS dataset (0.33 degree lat lon resolution). The kd-tree nearest neighbor method is used to interpolate 
-individual grid cell values from each ERA5 dataset onto the closest corresponding CLAUS (WIG filtered) grid cell location.
+individual grid cell values from the ERA5 and MSWEP dataset onto the closest corresponding CLAUS (WIG filtered) grid cell location.
 Input is a monthly NetCDF file of each variable with the exact same temporal, 3-hourly resolution and includes any 
 missing dates (i.e. the time dimension of all datasets align perfectly). 
 The output is new monthly NetCDF files of the spatially resampled data with the same temporal resolution as the input.
