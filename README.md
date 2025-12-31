@@ -1,7 +1,8 @@
 # Climate analysis scripts
 
-This repository contains a small sample of scripts from my doctoral research on precipitation variability, deep convection and quasi two-day
-westward propagating inertio-gravity (WIG) waves in equatorial Africa.
+This repository contains a representative subset of scripts developed during my doctoral research on precipitation variability, deep convection, and quasi two-day westward-propagating inertio-gravity (WIG) waves in equatorial Africa.
+
+The scripts demonstrate end-to-end scientific workflows, including satellite and reanalysis data ingestion, spatial resampling, temporal alignment, statistical analysis, machine learning, and visualization to isolate physically meaningful signals, quantify uncertainty, and analyze complex spatiotemporal atmospheric processes.
 
 # Scripts included
 
@@ -50,7 +51,7 @@ MAE: 7.9043</pre>
 
 'Spatial_lag_regression.py'
 
-Wave phase speed = -20.119037940087217 m/s (This represents WIG wave phase speed; negative values indicate westward propagation)
+Wave phase speed = -20.12 m/s (This represents WIG wave phase speed; negative values indicate westward propagation)
 
 # SHAP plot interpretation
 
